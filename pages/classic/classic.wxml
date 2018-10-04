@@ -1,4 +1,9 @@
 <!--pages/classic/classic.wxml-->
 <view>
-    <v-like></v-like>
+    <view class='header'>
+        <v-epsoide class="epsoide" index="{{ classic.index }}" />
+        <v-like class="like" like="{{ likeStatus }}" count="{{ likeCount }}" bind:like="onLike"></v-like>
+    </view>
+    
+    <v-movie hidden="{{ classic.type != 100 }}" img="{{ classic.image }}" content="{{ classic.content }}" />
 </view>
