@@ -27,6 +27,37 @@ Page({
         likeModel.like(behavior, this.data.classic.id, this.data.classic.type);
     },
 
+    onNext: function (event) {
+        this._updateClassic('next')
+    },
+
+    onPrevious: function (event) {
+
+        this._updateClassic('previous')
+        // let index = this.data.classic.index
+
+        // classicModel.getPrevious(index, (res) => {
+        //     this.setData({
+        //         classic: res,
+        //         latest: classicModel.isLatest(res.index),
+        //         first: classicModel.isFirst(res.index)
+        //     })
+        // })
+    },
+
+    _updateClassic: function (nextOrPrevious) {
+        let index = this.data.classic.index
+
+        classicModel.getPrevious(index, nextOrPrevious, (res) => {
+            // console.log(res);
+            this.setData({
+                classic: res,
+                latest: classicModel.isLatest(res.index),
+                first: classicModel.isFirst(res.index)
+            })
+        })
+    },
+
     /**
      * 生命周期函数--监听页面加载
      */
@@ -39,12 +70,6 @@ Page({
                 likeStatus: res.like_status
             })
         })
-        //   http.request({
-        //       url: 'classic/latest',
-        //       success: (res) => {
-        //           console.log(res);
-        //       }
-        //   })
     },
 
     /**

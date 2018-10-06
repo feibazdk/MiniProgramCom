@@ -30,4 +30,5 @@
 .navi {
     position: absolute;
     bottom: 40rpx;
+    left: 80rpx;
 }

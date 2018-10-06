@@ -21,3 +21,11 @@
   font-size: 36rpx;
   max-width: 550rpx;
 }
+
+.player-img {
+  width: 120rpx;
+  height: 120rpx;
+  position: relative;
+  bottom: 300rpx;
+  left:315rpx;
+}
