@@ -17,7 +17,8 @@ Component({
      * 组件的初始数据
      */
     data: {
-
+        yes_url: 'images/like.png',
+        no_url: 'images/like@dis.png'
     },
 
     /**

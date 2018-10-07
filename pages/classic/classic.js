@@ -49,11 +49,21 @@ Page({
         let index = this.data.classic.index
 
         classicModel.getPrevious(index, nextOrPrevious, (res) => {
+            this._getLikeStatus(res.id, res.type)
             // console.log(res);
             this.setData({
                 classic: res,
                 latest: classicModel.isLatest(res.index),
                 first: classicModel.isFirst(res.index)
+            })
+        })
+    },
+
+    _getLikeStatus: function(artID, category) {
+        likeModel.getClassLikeStatus(artID, category, (res) => {
+            this.setData({
+                likeCount: res.fav_nums,
+                likeStatus: res.like_status
             })
         })
     },
