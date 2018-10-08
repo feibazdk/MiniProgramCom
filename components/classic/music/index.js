@@ -23,6 +23,7 @@ Component({
 
     attached: function(event) {
         this._recoverStatus()
+        this._monitorSwitch()
     },
 
     detached: function(event) {
@@ -63,6 +64,21 @@ Component({
                 })
             }
             
+        },
+
+        _monitorSwitch: function() {
+            mMgr.onPlay(() => {
+                this._recoverStatus()
+            })
+            mMgr.onPause(() => {
+                this._recoverStatus()
+            })
+            mMgr.onStop(() => {
+                this._recoverStatus()
+            })
+            mMgr.onEnded(() => {
+                this._recoverStatus()
+            })
         }
 
     }
