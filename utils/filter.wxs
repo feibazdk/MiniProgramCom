@@ -7,7 +7,7 @@ var format = function(text) {
 }
 
 var limit = function(array, length) {
-    return array.slice(0, length);
+    return array.slice(1, length);
 }
 
 module.exports = {
