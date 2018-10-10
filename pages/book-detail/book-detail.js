@@ -67,6 +67,34 @@ Page({
         })
     },
 
+    ontagDetail(event) {
+        const commet = event.detail.text;
+
+        if(commet.length > 12) {
+            wx.showToast({
+                title: '短评最多12个字',
+                icon: 'none'
+            })
+            return;
+        }
+       
+        bookModel.postComponent(this.data.book.id, commet).then(res => {
+            wx.showToast({
+                title: '+1',
+                icon: 'none'
+            })
+
+            this.data.comments.unshift({
+                commet,
+                nums: 1
+            })
+
+            this.setData({
+                comments: this.data.comments
+            })
+        })
+    },
+
     /**
      * 生命周期函数--监听页面初次渲染完成
      */
