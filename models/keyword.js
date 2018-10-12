@@ -1,4 +1,6 @@
-export class KeywordModel {
+import { HTTP } from "../utils/http-p.js"
+
+export class KeywordModel extends HTTP {
 
     key = 'q'
     maxLength = 10
@@ -11,7 +13,11 @@ export class KeywordModel {
         return words;
     }
 
-    getHot() {}
+    getHot() {
+        return this.request({
+            url: '/book/hot_keyword'
+        })
+    }
 
     addToHistory(keyword) {
         let words = this.getHistory();
@@ -25,4 +31,6 @@ export class KeywordModel {
         words.unshift(keyword)
         wx.setStorageSync(this.key, words)
     }
+
+
 }

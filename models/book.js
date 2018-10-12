@@ -12,6 +12,16 @@ class BookModel extends HTTP {
         })
     }
 
+    search(start, q) {
+        return this.request({
+            url: 'book/search?summary=1',
+            data: {
+                q: q,
+                start: start
+            }
+        })
+    }
+
     getDetail(bid) {
         return this.request({
             url: `book/${bid}/detail`

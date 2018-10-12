@@ -24,7 +24,6 @@ Component({
      */
     methods: {
         onTag(event) {
-            console.log("2")
             this.triggerEvent('tagtext', {
                 text: this.properties.text
             })
