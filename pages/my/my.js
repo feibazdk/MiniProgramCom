@@ -1,47 +1,53 @@
-// pages/book/book.js
-import { BookModel } from '../../models/book.js'
-const bookModel = new BookModel();
-
-// 导入随机字符串js
-import { random } from '../../utils/common.js'
-
+// pages/my/my.js
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        books: [],
-        searching: false,
-        more: ''
+        authorized: false,
+        userInfo: null
     },
 
-    onSearching() {
-        this.setData({
-            searching: true
+    // 获取个人信息
+    getInfo(event) {
+        // console.log(event)
+    },
+
+    userAuthorized() {
+        wx.getSetting({
+            success: data => {
+                console.log(data)
+                if(data.authSetting['scope.userInfo']) {
+                    wx.getUserInfo({
+                        success: data => {
+                            this.setData({
+                                authorized: true,
+                                userInfo: data.userInfo
+                            })
+                        }
+                    })
+                }
+            }
         })
     },
 
-    onCancel() {
-        this.setData({
-            searching: false
-        })
+    onGetUserInfo(event) {
+        const userInfo = event.detail.userInfo
+        if (userInfo) {
+            this.setData({
+                authorized: true,
+                userInfo: userInfo
+            })
+        }
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-
-        bookModel.getHotList()
-            .then(res => {
-                this.setData({
-                    books: res
-                })
-            })
+        this.userAuthorized()
     },
-
-    
 
     /**
      * 生命周期函数--监听页面初次渲染完成
@@ -82,11 +88,7 @@ Page({
      * 页面上拉触底事件的处理函数
      */
     onReachBottom: function () {
-        console.log("123");
 
-        this.setData({
-            more: random(16)
-        })
     },
 
     /**

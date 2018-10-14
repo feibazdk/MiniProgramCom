@@ -11,7 +11,10 @@ Component({
      * 组件的属性列表
      */
     properties: {
-
+        more: {
+            type: String,
+            observer: '_load_more'
+        }
     },
 
     /**
@@ -22,9 +25,11 @@ Component({
         hotwordsList: [],
         dataArray: [],
         searching: false,
-        searchValue: ''
+        searchValue: '',
+        word: '',
+        loading: false
     },
-    attached(){
+    attached() {
         // const historyWords = keywordModel.getHistory(); 
         // const hotwords = keywordModel.getHot(); 
         this.setData({
@@ -42,6 +47,30 @@ Component({
      * 组件的方法列表
      */
     methods: {
+        _load_more() {
+            
+            if (!this.data.word) {
+                return
+            }
+
+            if (this.data.loading) {
+                return
+            }
+
+            const length = this.data.dataArray.length;
+            this.data.loading = true;
+
+            bookModel.search(length, this.data.word).then(res => {
+                const temArray = this.data.dataArray.concat(res.books);
+
+                this.setData({
+                    dataArray: temArray
+                })
+
+                this.data.loading = false;
+            })
+        },
+
         onCancel(event) {
             this.triggerEvent('cancel', {}, {})
         },
@@ -63,12 +92,13 @@ Component({
             // const q = event.detail.value
             bookModel.search(0, word).then(res => {
                 this.setData({
-                    dataArray: res.books
+                    dataArray: res.books,
+                    word
                 })
 
                 keywordModel.addToHistory(word)
             })
-            
+
         }
     }
 })

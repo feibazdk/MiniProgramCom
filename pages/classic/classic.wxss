@@ -32,3 +32,22 @@
     bottom: 40rpx;
     left: 80rpx;
 }
+
+.like-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-right:30rpx;
+}
+
+.share-btn{
+  margin-top:28rpx;
+  margin-left:10rpx;
+}
+
+.share{
+  /* padding:10rpx; */
+  width:40rpx;
+  height:40rpx;
+}
